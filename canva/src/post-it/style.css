@@ -1,0 +1,15 @@
+#postIt-container {
+  width: 80%;
+  background-color: var(--postit-color);
+  border: 1.5px solid var(--black);
+  padding: 2%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4%;
+}
+
+#postIt-content {
+  font-size: 12px;
+}
