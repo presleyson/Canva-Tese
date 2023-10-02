@@ -1,0 +1,40 @@
+# name: Build and Deploy
+
+# on:
+#   push:
+#     branches:
+#       - main # ou a branch que você quiser
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+
+#     - name: Install dependencies and build
+#       run: |
+#         npm ci
+#         npm run build
+
+#     - name: Commit build artifacts to gh-pages branch
+#       run: |
+#         git config --local user.email "action@github.com"
+#         git config --local user.name "GitHub Action"
+#         git checkout -B gh-pages
+#         git add -A
+#         git commit -m "Build artifacts for GitHub Pages"
+#         git push origin gh-pages
+
+#     - name: Switch back to main branch
+#       run: git checkout main
+
+#     - name: Remove build artifacts from main branch
+#       run: git rm -r build/*
+    
+#     - name: Commit changes to main branch
+#       run: |
+#         git add -A
+#         git commit -m "Remove build artifacts from main branch"
+#         git push origin main
