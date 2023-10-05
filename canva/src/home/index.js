@@ -157,9 +157,19 @@ export default function Home() {
           </div>
           <div className='canva-area'>
             <p className='title-canva-area title-canva-area-bottom'>Planejamento Estratégico</p>
-            <p className='text-canva-area text-canva-area-first-paragraph text-canva-area-bottom'>Apresente os resultados ou objetivos que sua empresa espera alcançar.</p>
-            <p className='text-canva-area text-canva-area-bottom'>Destaque metas, prazos e ações-chave.</p>
-            <div className='postIt-area'></div>
+            <p className='text-canva-area text-canva-area-first-paragraph text-canva-area-bottom' id='text-canva-area-planejamento-estrategico1'>Apresente os resultados ou objetivos que sua empresa espera alcançar.</p>
+            <p className='text-canva-area text-canva-area-bottom' id='text-canva-area-planejamento-estrategico2'>Destaque metas, prazos e ações-chave.</p>
+            <div className='postIt-area'>
+              {
+                postIts.map((postIt) => {
+                  if (postIt.title === 'Planejamento Estratégico') {
+                    document.getElementById('text-canva-area-planejamento-estrategico1').style.display = 'none'
+                    document.getElementById('text-canva-area-planejamento-estrategico2').style.display = 'none'
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                  }
+                  return null;
+                })}
+            </div>
           </div>
         </div>
         <button id='button-canva' onClick={e => openModal()}>Adicionar Post-it</button>

@@ -78,3 +78,13 @@
   flex-direction: column;
   align-items: center;
 }
+
+#canva-container-bottom div div #postIt-container {
+  width: 27.5%;
+}
+
+#canva-container-bottom div div {
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

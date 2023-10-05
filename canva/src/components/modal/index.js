@@ -40,6 +40,7 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
     event.preventDefault();
     setArray(form.title, form.description);
     close();
+    setForm({ description: '', title: '' });
   }
 
   return (

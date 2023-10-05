@@ -8,6 +8,8 @@ export default function validaQuantidade(title, postIts) {
     'Geração de idéias': 6,
     'Mercado': 2,
     'Problema': 2,
+    'Resultados': 6,
+    'Planejamento Estratégico': 6,
   };
 
   if (title in limites && postIts.filter(item => item.title === title).length >= limites[title]) {
