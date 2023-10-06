@@ -53,7 +53,7 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
                 <RxCross1 />
               </span>
             </div>
-            <form onSubmit={sendForm} id='form-modalAddPostIt'>
+            <form id='form-modalAddPostIt'>
               <div className='div-content-moldalAddPostIt'>
                 <label htmlFor="title">Seção</label>
                 <select
@@ -79,7 +79,7 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
                   onChange={onChangeDescription}
                 />
               </div>
-              <button id='btn-modalAddPostIt'>Adicionar</button>
+              <button onClick={sendForm} id='btn-modalAddPostIt'>Adicionar</button>
             </form>
           </div>
         </div>

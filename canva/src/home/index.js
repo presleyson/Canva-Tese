@@ -6,19 +6,31 @@ import './style.css';
 
 export default function Home() {
 
-  const [postIts, addPostIts] = useState([{}]);
+  const [postIts, setPostIts] = useState([{}]);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   function addPostIt(title, text) {
-    if (!validaQuantidade(title, postIts)) {
-      addPostIts([...postIts, { title, text }]);
+    const existingPostItIndex = postIts.findIndex((postIt) => postIt.title === title && postIt.text === text);
+
+    if (existingPostItIndex !== -1) {
+      // Se já existe um post-it com o mesmo título, remova-o antes de adicionar a versão atualizada
+      const updatedPostIts = [...postIts];
+      updatedPostIts.splice(existingPostItIndex, 1); // Remove o post-it original
+      setPostIts([...updatedPostIts, { title, text }]); // Adiciona a versão atualizada
+    } else {
+      // Caso contrário, adicione um novo post-it
+      if (!validaQuantidade(title, postIts)) {
+        setPostIts([...postIts, { title, text }]);
+      }
     }
   }
 
   function openModal() {
     setOpen(true);
+    setTitle('');
+    setDescription('');
   }
 
   function closeModal() {
@@ -29,6 +41,11 @@ export default function Home() {
     setOpen(true);
     setTitle(title);
     setDescription(text);
+  }
+
+  function deletePostIt(title) {
+    const updatedPostIts = postIts.filter((postIt) => postIt.title !== title && postIt.text !== description);
+    setPostIts(updatedPostIts);
   }
 
   return (
@@ -116,7 +133,7 @@ export default function Home() {
                   postIts.map((postIt) => {
                     if (postIt.title === 'Mercado') {
                       document.getElementById('text-canva-area-mercado').style.display = 'none'
-                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                      return (<><PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} /> <button onClick={() => deletePostIt(postIt.title)}>Apagar</button></>)
                     }
                     return null;
                   })}
