@@ -1,29 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PostIt from '../components/post-it';
+import * as uuid from 'uuid';
 import validaQuantidade from '../utils/validaQuantidade';
 import ModalAddPostIt from '../components/modal';
 import './style.css';
 
 export default function Home() {
-
-  const [postIts, setPostIts] = useState([{}]);
+  const [postIts, setPostIts] = useState([]);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [display, setDisplay] = useState({
+    PP: 'block',
+    RT: 'block',
+    RF: 'block',
+    IS: 'block',
+    GI: 'block',
+    M: 'block',
+    P1: 'block',
+    P2: 'block',
+    R: 'block',
+    PE1: 'block',
+    PE2: 'block',
+  })
 
   function addPostIt(title, text) {
-    const existingPostItIndex = postIts.findIndex((postIt) => postIt.title === title && postIt.text === text);
-
-    if (existingPostItIndex !== -1) {
-      // Se já existe um post-it com o mesmo título, remova-o antes de adicionar a versão atualizada
-      const updatedPostIts = [...postIts];
-      updatedPostIts.splice(existingPostItIndex, 1); // Remove o post-it original
-      setPostIts([...updatedPostIts, { title, text }]); // Adiciona a versão atualizada
-    } else {
-      // Caso contrário, adicione um novo post-it
-      if (!validaQuantidade(title, postIts)) {
-        setPostIts([...postIts, { title, text }]);
-      }
+    if (!validaQuantidade(title, postIts)) {
+      setPostIts([...postIts, { id: uuid.v4(), title, text }]);
     }
   }
 
@@ -43,10 +46,56 @@ export default function Home() {
     setDescription(text);
   }
 
-  function deletePostIt(title) {
-    const updatedPostIts = postIts.filter((postIt) => postIt.title !== title && postIt.text !== description);
+  function deletePostIt(id) {
+    const updatedPostIts = postIts.filter((postIt) => postIt.id !== id);
     setPostIts(updatedPostIts);
   }
+
+  useEffect(() => {
+    console.log(postIts)
+    function updateDisplay(title, displayValue) {
+      const element = document.getElementById(`text-canva-area-${title}`);
+      if (element) {
+        element.style.display = displayValue;
+      }
+    }
+
+    postIts.forEach((postIt) => {
+      switch (postIt.title) {
+        case 'Principais Parceiros':
+          updateDisplay('principais-parceiros', postIt.title === 'Principais Parceiros' ? 'none' : 'block');
+          break;
+        case 'Recursos Técnicos':
+          updateDisplay('recursos-tecnicos', postIt.title === 'Recursos Técnicos' ? 'none' : 'block');
+          break;
+        case 'Recursos Financeiros':
+          updateDisplay('recursos-financeiros', postIt.title === 'Recursos Financeiros' ? 'none' : 'block');
+          break;
+        case 'Idéias Selecionadas':
+          updateDisplay('ideias-selecionadas', postIt.title === 'Idéias Selecionadas' ? 'none' : 'block');
+          break;
+        case 'Geração de idéias':
+          updateDisplay('geracao-ideias', postIt.title === 'Geração de idéias' ? 'none' : 'block');
+          break;
+        case 'Mercado':
+          updateDisplay('mercado', postIt.title === 'Mercado' ? 'none' : 'block');
+          break;
+        case 'Problema':
+          updateDisplay('problema1', postIt.title === 'Problema' ? 'none' : 'block');
+          updateDisplay('problema2', postIt.title === 'Problema' ? 'none' : 'block');
+          break;
+        case 'Resultados':
+          updateDisplay('resultados', postIt.title === 'Resultados' ? 'none' : 'block');
+          break;
+        case 'Planejamento Estratégico':
+          updateDisplay('planejamento-estrategico1', postIt.title === 'Planejamento Estratégico' ? 'none' : 'block');
+          updateDisplay('planejamento-estrategico2', postIt.title === 'Planejamento Estratégico' ? 'none' : 'block');
+          break;
+        default:
+          break;
+      }
+    });
+  }, [postIts]);
 
   return (
     <>
@@ -60,8 +109,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Principais Parceiros') {
-                    document.getElementById('text-canva-area-principais-parceiros').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })
@@ -75,8 +123,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Recursos Técnicos') {
-                    document.getElementById('text-canva-area-recursos-tecnicos').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -89,8 +136,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Recursos Financeiros') {
-                    document.getElementById('text-canva-area-recursos-financeiros').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -103,8 +149,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Idéias Selecionadas') {
-                    document.getElementById('text-canva-area-ideias-selecionadas').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -117,8 +162,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Geração de idéias') {
-                    document.getElementById('text-canva-area-geracao-ideias').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -132,8 +176,7 @@ export default function Home() {
                 {
                   postIts.map((postIt) => {
                     if (postIt.title === 'Mercado') {
-                      document.getElementById('text-canva-area-mercado').style.display = 'none'
-                      return (<><PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} /> <button onClick={() => deletePostIt(postIt.title)}>Apagar</button></>)
+                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                     }
                     return null;
                   })}
@@ -147,9 +190,7 @@ export default function Home() {
                 {
                   postIts.map((postIt) => {
                     if (postIt.title === 'Problema') {
-                      document.getElementById('text-canva-area-problema1').style.display = 'none'
-                      document.getElementById('text-canva-area-problema2').style.display = 'none'
-                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                     }
                     return null;
                   })}
@@ -165,8 +206,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Resultados') {
-                    document.getElementById('text-canva-area-resultados').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -180,9 +220,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Planejamento Estratégico') {
-                    document.getElementById('text-canva-area-planejamento-estrategico1').style.display = 'none'
-                    document.getElementById('text-canva-area-planejamento-estrategico2').style.display = 'none'
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} />
+                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
