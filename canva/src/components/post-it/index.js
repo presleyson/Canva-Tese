@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 
 export default function PostIt({ text, open, deletePostIt }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [message, setMessage] = useState(text);
+
+  useEffect(() => {
+    setMessage(text);
+  }, [text]);
 
   return (
     <>

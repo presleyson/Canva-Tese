@@ -10,6 +10,7 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [editId, setEditId] = useState(null);
   const [display, setDisplay] = useState({
     PP: 'block',
     RT: 'block',
@@ -25,9 +26,40 @@ export default function Home() {
   })
 
   function addPostIt(title, text) {
-    if (!validaQuantidade(title, postIts)) {
-      setPostIts([...postIts, { id: uuid.v4(), title, text }]);
+    // Verifica se o post-it sendo editado já existe
+    const postItExists = postIts.some(postIt => postIt.id === editId);
+
+    if (!validaQuantidade(title, postIts, editId) || postItExists) {
+      if (editId !== null) {
+        // Edição de post-it existente
+        const updatedPostIts = postIts.map(postIt =>
+          postIt.id === editId ? { ...postIt, title, text } : postIt
+        );
+        setPostIts(updatedPostIts);
+        setEditId(null);
+      } else {
+        // Adição de novo post-it
+        setPostIts([...postIts, { id: uuid.v4(), title, text }]);
+      }
+      // Limpa os campos após adição ou edição
+      setTitle('');
+      setDescription('');
     }
+  }
+
+
+  function editModal(title, text, id) {
+    setOpen(true);
+    setTitle(title);
+    setDescription(text);
+    setEditId(id);
+  }
+
+  function deletePostIt(id) {
+    const updatedPostIts = postIts.filter((postIt) => postIt.id !== id);
+    setPostIts(updatedPostIts);
+    // Limpa o ID de edição quando um post-it é removido
+    setEditId(null);
   }
 
   function openModal() {
@@ -38,17 +70,6 @@ export default function Home() {
 
   function closeModal() {
     setOpen(false);
-  }
-
-  function editModal(title, text) {
-    setOpen(true);
-    setTitle(title);
-    setDescription(text);
-  }
-
-  function deletePostIt(id) {
-    const updatedPostIts = postIts.filter((postIt) => postIt.id !== id);
-    setPostIts(updatedPostIts);
   }
 
   useEffect(() => {
@@ -109,7 +130,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Principais Parceiros') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })
@@ -123,7 +144,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Recursos Técnicos') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -136,7 +157,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Recursos Financeiros') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -149,7 +170,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Idéias Selecionadas') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -162,7 +183,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Geração de idéias') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -176,7 +197,7 @@ export default function Home() {
                 {
                   postIts.map((postIt) => {
                     if (postIt.title === 'Mercado') {
-                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                      return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                     }
                     return null;
                   })}
@@ -190,7 +211,7 @@ export default function Home() {
                 {
                   postIts.map((postIt) => {
                     if (postIt.title === 'Problema') {
-                      return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                      return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                     }
                     return null;
                   })}
@@ -206,7 +227,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Resultados') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
@@ -220,7 +241,7 @@ export default function Home() {
               {
                 postIts.map((postIt) => {
                   if (postIt.title === 'Planejamento Estratégico') {
-                    return <PostIt key={postIt.text} text={postIt.text} open={e => editModal(postIt.title, postIt.text)} deletePostIt={e => deletePostIt(postIt.id)} />
+                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
                   }
                   return null;
                 })}
