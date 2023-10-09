@@ -11,19 +11,19 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editId, setEditId] = useState(null);
-  const [display, setDisplay] = useState({
-    PP: 'block',
-    RT: 'block',
-    RF: 'block',
-    IS: 'block',
-    GI: 'block',
-    M: 'block',
-    P1: 'block',
-    P2: 'block',
-    R: 'block',
-    PE1: 'block',
-    PE2: 'block',
-  })
+  // const [display, setDisplay] = useState({
+  //   PP: 'block',
+  //   RT: 'block',
+  //   RF: 'block',
+  //   IS: 'block',
+  //   GI: 'block',
+  //   M: 'block',
+  //   P1: 'block',
+  //   P2: 'block',
+  //   R: 'block',
+  //   PE1: 'block',
+  //   PE2: 'block',
+  // })
 
   function addPostIt(title, text) {
     // Verifica se o post-it sendo editado já existe
