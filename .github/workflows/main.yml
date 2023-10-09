@@ -1,40 +1,45 @@
-# name: Build and Deploy
+name: Build and Deploy
 
-# on:
-#   push:
-#     branches:
-#       - main # ou a branch que você quiser
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v2
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-#     - name: Install dependencies and build
-#       run: |
-#         npm ci
-#         npm run build
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
 
-#     - name: Commit build artifacts to gh-pages branch
-#       run: |
-#         git config --local user.email "action@github.com"
-#         git config --local user.name "GitHub Action"
-#         git checkout -B gh-pages
-#         git add -A
-#         git commit -m "Build artifacts for GitHub Pages"
-#         git push origin gh-pages
+    - name: Create or switch to gh-pages branch
+      run: |
+        git branch -D gh-pages || true
+        git checkout -b gh-pages
+        git rm -r canva/build/*
+        git add -f canva/build
 
-#     - name: Switch back to main branch
-#       run: git checkout main
+    - name: Commit build artifacts to gh-pages branch
+      run: |
+        git config --local user.email "nathanmarques20@yahoo.com.br"
+        git config --local user.name "NathanMarques2001"
+        git commit -m "Build artifacts for GitHub Pages"
+        git push origin gh-pages
 
-#     - name: Remove build artifacts from main branch
-#       run: git rm -r build/*
-    
-#     - name: Commit changes to main branch
-#       run: |
-#         git add -A
-#         git commit -m "Remove build artifacts from main branch"
-#         git push origin main
+    - name: Switch back to main branch
+      run: git checkout main
+
+    - name: Remove build artifacts from main branch
+      run: git rm -r canva/build/*
+
+    - name: Commit changes to main branch
+      run: |
+        git add -A
+        git commit -m "Remove build artifacts from main branch"
+        git push origin main
