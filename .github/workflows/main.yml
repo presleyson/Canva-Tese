@@ -30,14 +30,12 @@ jobs:
     - name: Remove all files except build
       run: |
         rm -rf .github/ README.md
-        cd canva
         npm ci
         npm run build
         rm -rf !(build)
 
     - name: Commit and push changes
       run: |
-        cd canva
         git add .
         git commit -m "Build and deploy updates"
         git push origin gh-pages
@@ -45,4 +43,4 @@ jobs:
     - name: Switch back to main branch
       run: |
         git checkout main
-        rm -rf canva/build/
+        rm -rf build/
