@@ -13,40 +13,27 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
+    - name: Switch to gh-pages and merge with main
+      run: |
+        git checkout gh-pages
+        git merge main
 
-    - name: Install dependencies and build
+    - name: Remove all files except build
+      run: |
+        rm -rf .github/ README.md
+        cd canva
+        npm ci
+        npm run build
+        rm -rf !(build)
+
+    - name: Commit and push changes
       run: |
         cd canva
-        npm install
-        npm run build 
-
-    - name: Create or switch to gh-pages branch
-      run: |
-        git branch -D gh-pages || true
-        git checkout -b gh-pages
-        git rm -r canva/build/* || true
-        mv build canva/
-        git add -f canva/build
-
-    - name: Commit build artifacts to gh-pages branch
-      run: |
-        git config --local user.email "nathanmarques20@yahoo.com.br"
-        git config --local user.name "NathanMarques2001"
-        git commit -m "Build artifacts for GitHub Pages"
+        git add .
+        git commit -m "Build and deploy updates"
         git push origin gh-pages
 
     - name: Switch back to main branch
-      run: git checkout main
-
-    - name: Remove build artifacts from main branch
-      run: git rm -r canva/build/* || true
-
-    - name: Commit changes to main branch
       run: |
-        git add -A
-        git commit -m "Remove build artifacts from main branch"
-        git push origin main
+        git checkout main
+        rm -rf canva/build/
