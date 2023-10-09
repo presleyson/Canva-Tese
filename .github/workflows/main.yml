@@ -28,7 +28,7 @@ jobs:
       run: |
         git branch -D gh-pages || true
         git checkout -b gh-pages
-        git rm -r canva/build/*
+        git rm -r canva/build/* || true
         mv build canva/
         git add -f canva/build
 
@@ -43,7 +43,7 @@ jobs:
       run: git checkout main
 
     - name: Remove build artifacts from main branch
-      run: git rm -r canva/build/*
+      run: git rm -r canva/build/* || true
 
     - name: Commit changes to main branch
       run: |
