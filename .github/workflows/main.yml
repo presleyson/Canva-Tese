@@ -20,7 +20,7 @@ jobs:
     - name: Switch to gh-pages and merge with main
       run: |
         git checkout gh-pages
-        git merge main
+        git merge --allow-unrelated-histories main
 
     - name: Remove all files except build
       run: |
