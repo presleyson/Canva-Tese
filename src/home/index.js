@@ -11,6 +11,7 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editId, setEditId] = useState(null);
+  const [deletedPostIts, setDeletedPostIts] = useState(false);
   // const [display, setDisplay] = useState({
   //   PP: 'block',
   //   RT: 'block',
