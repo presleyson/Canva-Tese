@@ -3,8 +3,9 @@ import { Dialog, DialogContent } from '@radix-ui/react-dialog'
 import { RxCross1 } from 'react-icons/rx';
 import { useState } from 'react'
 import './style.css'
+import PopUp from '../pop-up';
 
-export default function ModalAddPostIt({ open, close, setArray, title, description }) {
+export default function ModalAddPostIt({ open, close, setArray, title, description, editId }) {
   const [form, setForm] = useState({
     title: title || '',
     description: description || '',
@@ -21,6 +22,7 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
       { value: 'Planejamento Estratégico', label: 'Planejamento Estratégico' },
     ],
   });
+  const [editConfirmationOpen, setEditConfirmationOpen] = useState(false);
 
   const onChangeTitle = (event) => {
     setForm({
@@ -38,13 +40,40 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
 
   const sendForm = (event) => {
     event.preventDefault();
-    setArray(form.title, form.description);
-    close();
-    setForm({ description: '', title: '' });
-  }
+
+    if (editId !== null) {
+      setEditConfirmationOpen(true);
+    } else {
+      setArray(form.title, form.description);
+      close();
+      setForm({ description: '', title: '' });
+    }
+  };
+
+  const confirmEdit = () => {
+    if (editId !== null) {
+      setArray(form.title, form.description);
+      close();
+      setForm({ description: '', title: '' });
+      setEditConfirmationOpen(false);
+    }
+  };
+
+
 
   return (
     <Dialog open={open}>
+      {editConfirmationOpen && (
+        <PopUp
+          open={editConfirmationOpen}
+          message="Tem certeza de que deseja editar este post-it?"
+          close={() => setEditConfirmationOpen(false)}
+          confirm="Confirmar"
+          cancel="Cancelar"
+          confirmFnct={confirmEdit}
+        />
+      )}
+
       <DialogContent>
         <div id='background-moldalAddPostIt'>
           <div id='container-moldalAddPostIt'>
@@ -79,7 +108,7 @@ export default function ModalAddPostIt({ open, close, setArray, title, descripti
                   onChange={onChangeDescription}
                 />
               </div>
-              <button onClick={sendForm} id='btn-modalAddPostIt'>Adicionar</button>
+              <button onClick={sendForm} id='btn-modalAddPostIt'>Salvar</button>
             </form>
           </div>
         </div>

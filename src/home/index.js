@@ -4,6 +4,7 @@ import * as uuid from 'uuid';
 import validaQuantidade from '../utils/validaQuantidade';
 import ModalAddPostIt from '../components/modal';
 import './style.css';
+import PopUp from '../components/pop-up';
 
 export default function Home() {
   const [postIts, setPostIts] = useState([]);
@@ -11,7 +12,9 @@ export default function Home() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editId, setEditId] = useState(null);
-  const [deletedPostIts, setDeletedPostIts] = useState(false);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [postToDeleteId, setPostToDeleteId] = useState(null);
+
   // const [display, setDisplay] = useState({
   //   PP: 'block',
   //   RT: 'block',
@@ -32,17 +35,14 @@ export default function Home() {
 
     if (!validaQuantidade(title, postIts, editId) || postItExists) {
       if (editId !== null) {
-        // Edição de post-it existente
         const updatedPostIts = postIts.map(postIt =>
           postIt.id === editId ? { ...postIt, title, text } : postIt
         );
         setPostIts(updatedPostIts);
         setEditId(null);
       } else {
-        // Adição de novo post-it
         setPostIts([...postIts, { id: uuid.v4(), title, text }]);
       }
-      // Limpa os campos após adição ou edição
       setTitle('');
       setDescription('');
     }
@@ -57,10 +57,17 @@ export default function Home() {
   }
 
   function deletePostIt(id) {
-    const updatedPostIts = postIts.filter((postIt) => postIt.id !== id);
+    setPostToDeleteId(id);
+    setDeleteConfirmationOpen(true);
+  }
+
+  function confirmDelete() {
+    const idToDelete = postToDeleteId;
+    const updatedPostIts = postIts.filter((postIt) => postIt.id !== idToDelete);
     setPostIts(updatedPostIts);
-    // Limpa o ID de edição quando um post-it é removido
-    setEditId(null);
+
+    setPostToDeleteId(null);
+    setDeleteConfirmationOpen(false);
   }
 
   function openModal() {
@@ -121,7 +128,27 @@ export default function Home() {
 
   return (
     <>
-      {open && <ModalAddPostIt open={open} close={closeModal} setArray={addPostIt} title={title} description={description} />}
+      {open && (
+        <ModalAddPostIt
+          open={open}
+          close={closeModal}
+          setArray={addPostIt}
+          title={title}
+          description={description}
+          editId={editId}
+        />
+      )}
+      {deleteConfirmationOpen && (
+        <PopUp
+          open={deleteConfirmationOpen}
+          message="Tem certeza de que deseja excluir este post-it?"
+          close={() => setDeleteConfirmationOpen(false)}
+          confirm="Confirmar"
+          cancel="Cancelar"
+          confirmFnct={confirmDelete}
+        />
+      )}
+
       <div id='canva-container-main'>
         <div id='canva-container-top'>
           <div className='canva-area'>
