@@ -157,6 +157,11 @@ export default function Home() {
         <div id='canva-container-top'>
           <div className='canva-area'>
             <p className='title-canva-area'>Principais Parceiros</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Principais Parceiros').length === 0 && (
+                <p className='text-canva-area' id='text-canva-area-principais-parceiros'>{initialTexts['Principais Parceiros']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -166,15 +171,15 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Principais Parceiros').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-principais-parceiros'>{initialTexts['Principais Parceiros']}</p>
-                )
-              }
             </div>
           </div>
           <div className='canva-area'>
             <p className='title-canva-area'>Recursos Técnicos</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Recursos Técnicos').length === 0 && (
+                <p className='text-canva-area' id='text-canva-area-recursos-tecnicos'>{initialTexts['Recursos Técnicos']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -184,15 +189,15 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Recursos Técnicos').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-recursos-tecnicos'>{initialTexts['Recursos Técnicos']}</p>
-                )
-              }
             </div>
           </div>
           <div className='canva-area'>
             <p className='title-canva-area'>Recursos Financeiros</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Recursos Financeiros').length === 0 && (
+                <p className='text-canva-area' id='text-canva-area-recursos-financeiros'>{initialTexts['Recursos Financeiros']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -202,15 +207,15 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Recursos Financeiros').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-recursos-financeiros'>{initialTexts['Recursos Financeiros']}</p>
-                )
-              }
             </div>
           </div>
           <div className='canva-area'>
             <p className='title-canva-area'>Idéias Selecionadas</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Idéias Selecionadas').length === 0 && (
+                <p className='text-canva-area' id='text-canva-area-ideias-selecionadas'>{initialTexts['Idéias Selecionadas']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -220,15 +225,15 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Idéias Selecionadas').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-ideias-selecionadas'>{initialTexts['Idéias Selecionadas']}</p>
-                )
-              }
             </div>
           </div>
           <div className='canva-area'>
             <p className='title-canva-area'>Geração de idéias</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Geração de idéias').length === 0 && (
+                <p className='text-canva-area' id='text-canva-area-geracao-ideias'>{initialTexts['Geração de idéias']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -238,16 +243,16 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Geração de idéias').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-geracao-ideias'>{initialTexts['Geração de idéias']}</p>
-                )
-              }
             </div>
           </div>
           <div id='canva-container-right'>
             <div className='canva-area canva-area-right'>
               <p className='title-canva-area'>Mercado</p>
+              {
+                postIts.filter(postIt => postIt.title === 'Mercado').length === 0 && (
+                  <p className='text-canva-area' id='text-canva-area-mercado'>{initialTexts['Mercado']}</p>
+                )
+              }
               <div className='postIt-area'>
                 {
                   postIts.map((postIt) => {
@@ -257,15 +262,15 @@ export default function Home() {
                     return null;
                   })
                 }
-                {
-                  postIts.filter(postIt => postIt.title === 'Mercado').length === 0 && (
-                    <p className='text-canva-area' id='text-canva-area-mercado'>{initialTexts['Mercado']}</p>
-                  )
-                }
               </div>
             </div>
             <div className='canva-area canva-area-right'>
               <p className='title-canva-area'>Problema</p>
+              {
+                postIts.filter(postIt => postIt.title === 'Problema').length === 0 && (
+                  <p className='text-canva-area text-canva-area-first-paragraph' id='text-canva-area-problema1'>{initialTexts['Problema']}</p>
+                )
+              }
               <div className='postIt-area'>
                 {
                   postIts.map((postIt) => {
@@ -275,11 +280,6 @@ export default function Home() {
                     return null;
                   })
                 }
-                {
-                  postIts.filter(postIt => postIt.title === 'Problema').length === 0 && (
-                    <p className='text-canva-area text-canva-area-first-paragraph' id='text-canva-area-problema1'>{initialTexts['Problema']}</p>
-                  )
-                }
               </div>
             </div>
           </div>
@@ -287,6 +287,11 @@ export default function Home() {
         <div id='canva-container-bottom'>
           <div className='canva-area'>
             <p className='title-canva-area title-canva-area-bottom'>Resultados</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Resultados').length === 0 && (
+                <p className='text-canva-area text-canva-area-bottom' id='text-canva-area-resultados'>{initialTexts['Resultados']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -296,15 +301,15 @@ export default function Home() {
                   return null;
                 })
               }
-              {
-                postIts.filter(postIt => postIt.title === 'Resultados').length === 0 && (
-                  <p className='text-canva-area text-canva-area-bottom' id='text-canva-area-resultados'>{initialTexts['Resultados']}</p>
-                )
-              }
             </div>
           </div>
           <div className='canva-area'>
             <p className='title-canva-area title-canva-area-bottom'>Planejamento Estratégico</p>
+            {
+              postIts.filter(postIt => postIt.title === 'Planejamento Estratégico').length === 0 && (
+                <p className='text-canva-area text-canva-area-first-paragraph text-canva-area-bottom' id='text-canva-area-planejamento-estrategico1'>{initialTexts['Planejamento Estratégico']}</p>
+              )
+            }
             <div className='postIt-area'>
               {
                 postIts.map((postIt) => {
@@ -313,11 +318,6 @@ export default function Home() {
                   }
                   return null;
                 })
-              }
-              {
-                postIts.filter(postIt => postIt.title === 'Planejamento Estratégico').length === 0 && (
-                  <p className='text-canva-area text-canva-area-first-paragraph text-canva-area-bottom' id='text-canva-area-planejamento-estrategico1'>{initialTexts['Planejamento Estratégico']}</p>
-                )
               }
             </div>
           </div>
