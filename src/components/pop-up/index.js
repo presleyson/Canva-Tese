@@ -7,9 +7,11 @@ export default function PopUp({ open, message, close, confirm, cancel, confirmFn
       <DialogContent>
         <div id='container-popUp'>
           <div id='div-popUpBox'>
-            <p>{message}</p>
-            <button id='btn-confirmPopUp' onClick={confirmFnct}>{confirm}</button>
-            <button id='btn-confirmPopUp' onClick={close}>{cancel}</button>
+            <p id='p-pupUp'>{message}</p>
+            <div id="div-popUp-btn">
+              <button id='btn-confirmPopUp' onClick={close}>{cancel}</button>
+              <button id='btn-confirmPopUp' onClick={confirmFnct}>{confirm}</button>
+            </div>
           </div>
         </div>
       </DialogContent>
