@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import * as uuid from 'uuid';
 // Componentes
 import PostItArea from '../components/post-it-area';
-import CanvaArea from '../components/canva-area';
+import CanvaArea from '../components/canva-left';
 import CanvaRight from '../components/canva-right';
 import CanvaBottom from '../components/canva-bottom';
 import ModalAddPostIt from '../components/modal';

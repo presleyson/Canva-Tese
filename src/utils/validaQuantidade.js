@@ -1,11 +1,11 @@
 export default function validaQuantidade(title, postIts, editId) {
   // Define os limites para cada título
   const limites = {
-    'Recursos Técnicos': 6,
-    'Principais Parceiros': 6,
-    'Recursos Financeiros': 6,
-    'Idéias Selecionadas': 6,
-    'Geração de idéias': 6,
+    'Recursos Técnicos': 5,
+    'Principais Parceiros': 5,
+    'Recursos Financeiros': 5,
+    'Idéias Selecionadas': 5,
+    'Geração de idéias': 5,
     'Mercado': 2,
     'Problema': 2,
     'Resultados': 6,
