@@ -1,10 +1,19 @@
+// Bibliotecas
 import { useEffect, useState } from 'react';
-import PostIt from '../components/post-it';
 import * as uuid from 'uuid';
-import validaQuantidade from '../utils/validaQuantidade';
+// Componentes
+import PostItArea from '../components/post-it-area';
+import CanvaArea from '../components/canva-area';
+import CanvaRight from '../components/canva-right';
+import CanvaBottom from '../components/canva-bottom';
 import ModalAddPostIt from '../components/modal';
-import './style.css';
 import PopUp from '../components/pop-up';
+// Estilos e Funções
+import { initialTexts, leftTopArea, rightTopArea, bottomArea } from '../utils/strings';
+import validaQuantidade from '../utils/validaQuantidade';
+import atualizaDisplay from '../utils/atualizaDisplay';
+import './style.css';
+
 
 export default function Home() {
   const [postIts, setPostIts] = useState([]);
@@ -14,19 +23,6 @@ export default function Home() {
   const [editId, setEditId] = useState(null);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [postToDeleteId, setPostToDeleteId] = useState(null);
-
-  const [initialTexts, setInitialTexts] = useState({
-    'Principais Parceiros': 'Identifique os principais colaboradores, agentes, departamentos ou sócios.',
-    'Recursos Técnicos': 'Liste as instituições ou organizações que podem fornecer suporte técnico, como universidades, parques tecnológicos, ou fornecedores.',
-    'Recursos Financeiros': 'Enumere potenciais fontes de financiamento, como investidores privados, capital de risco, subsídios governamentais, etc.',
-    'Idéias Selecionadas': 'Liste aqui as ideias selecionadas mais viáveis.',
-    'Geração de idéias': 'Insira aqui idéias vindas de pesquisas de mercado, brainstorming, etc.',
-    'Mercado': 'Insira aqui o mercado alvo.',
-    'Problema': 'Identifique os principais problemas que sua empresa busca resolver. Explique como esses problemas afetam os clientes ou o mercado.',
-    'Resultados': 'Apresente os resultados ou objetivos que sua empresa espera alcançar.',
-    'Planejamento Estratégico': 'Apresente os resultados ou objetivos que sua empresa espera alcançar. Destaque metas, prazos e ações-chave.',
-  });
-
 
   function addPostIt(title, text) {
     // Verifica se o post-it sendo editado já existe
@@ -80,54 +76,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    function updateDisplay(title, displayValue) {
-      const element = document.getElementById(`text-canva-area-${title}`);
-      if (element) {
-        if (displayValue === 'none' && postIts.filter(postIt => postIt.title === title).length === 0) {
-          // Se a área estiver vazia, exiba a dica de texto inicial
-          element.innerText = initialTexts[title];
-        } else {
-          element.style.display = displayValue;
-        }
-      }
-    }
-
-
-    postIts.forEach((postIt) => {
-      switch (postIt.title) {
-        case 'Principais Parceiros':
-          updateDisplay('principais-parceiros', postIt.title === 'Principais Parceiros' ? 'none' : 'block');
-          break;
-        case 'Recursos Técnicos':
-          updateDisplay('recursos-tecnicos', postIt.title === 'Recursos Técnicos' ? 'none' : 'block');
-          break;
-        case 'Recursos Financeiros':
-          updateDisplay('recursos-financeiros', postIt.title === 'Recursos Financeiros' ? 'none' : 'block');
-          break;
-        case 'Idéias Selecionadas':
-          updateDisplay('ideias-selecionadas', postIt.title === 'Idéias Selecionadas' ? 'none' : 'block');
-          break;
-        case 'Geração de idéias':
-          updateDisplay('geracao-ideias', postIt.title === 'Geração de idéias' ? 'none' : 'block');
-          break;
-        case 'Mercado':
-          updateDisplay('mercado', postIt.title === 'Mercado' ? 'none' : 'block');
-          break;
-        case 'Problema':
-          updateDisplay('problema1', postIt.title === 'Problema' ? 'none' : 'block');
-          updateDisplay('problema2', postIt.title === 'Problema' ? 'none' : 'block');
-          break;
-        case 'Resultados':
-          updateDisplay('resultados', postIt.title === 'Resultados' ? 'none' : 'block');
-          break;
-        case 'Planejamento Estratégico':
-          updateDisplay('planejamento-estrategico1', postIt.title === 'Planejamento Estratégico' ? 'none' : 'block');
-          updateDisplay('planejamento-estrategico2', postIt.title === 'Planejamento Estratégico' ? 'none' : 'block');
-          break;
-        default:
-          break;
-      }
-    });
+    atualizaDisplay(postIts);
   }, [postIts]);
 
   return (
@@ -155,172 +104,31 @@ export default function Home() {
 
       <div id='canva-container-main'>
         <div id='canva-container-top'>
-          <div className='canva-area'>
-            <p className='title-canva-area'>Principais Parceiros</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Principais Parceiros').length === 0 && (
-                <p className='text-canva-area' id='text-canva-area-principais-parceiros'>{initialTexts['Principais Parceiros']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Principais Parceiros') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
-          <div className='canva-area'>
-            <p className='title-canva-area'>Recursos Técnicos</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Recursos Técnicos').length === 0 && (
-                <p className='text-canva-area' id='text-canva-area-recursos-tecnicos'>{initialTexts['Recursos Técnicos']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Recursos Técnicos') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
-          <div className='canva-area'>
-            <p className='title-canva-area'>Recursos Financeiros</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Recursos Financeiros').length === 0 && (
-                <p className='text-canva-area' id='text-canva-area-recursos-financeiros'>{initialTexts['Recursos Financeiros']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Recursos Financeiros') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
-          <div className='canva-area'>
-            <p className='title-canva-area'>Idéias Selecionadas</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Idéias Selecionadas').length === 0 && (
-                <p className='text-canva-area' id='text-canva-area-ideias-selecionadas'>{initialTexts['Idéias Selecionadas']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Idéias Selecionadas') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
-          <div className='canva-area'>
-            <p className='title-canva-area'>Geração de idéias</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Geração de idéias').length === 0 && (
-                <p className='text-canva-area' id='text-canva-area-geracao-ideias'>{initialTexts['Geração de idéias']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Geração de idéias') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
+          {leftTopArea.titles.map((title, index) => {
+            return (
+              <CanvaArea postIts={postIts} title={title} initialTexts={initialTexts} id={leftTopArea.id[index]}>
+                <PostItArea postIts={postIts} editModal={editModal} deletePostIt={deletePostIt} title={title} />
+              </CanvaArea>
+            );
+          })}
           <div id='canva-container-right'>
-            <div className='canva-area canva-area-right'>
-              <p className='title-canva-area'>Mercado</p>
-              {
-                postIts.filter(postIt => postIt.title === 'Mercado').length === 0 && (
-                  <p className='text-canva-area' id='text-canva-area-mercado'>{initialTexts['Mercado']}</p>
-                )
-              }
-              <div className='postIt-area'>
-                {
-                  postIts.map((postIt) => {
-                    if (postIt.title === 'Mercado') {
-                      return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                    }
-                    return null;
-                  })
-                }
-              </div>
-            </div>
-            <div className='canva-area canva-area-right'>
-              <p className='title-canva-area'>Problema</p>
-              {
-                postIts.filter(postIt => postIt.title === 'Problema').length === 0 && (
-                  <p className='text-canva-area text-canva-area-first-paragraph' id='text-canva-area-problema1'>{initialTexts['Problema']}</p>
-                )
-              }
-              <div className='postIt-area'>
-                {
-                  postIts.map((postIt) => {
-                    if (postIt.title === 'Problema') {
-                      return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                    }
-                    return null;
-                  })
-                }
-              </div>
-            </div>
+            {rightTopArea.titles.map((title, index) => {
+              return (
+                <CanvaRight postIts={postIts} title={title} initialTexts={initialTexts} id={rightTopArea.id[index]}>
+                  <PostItArea postIts={postIts} editModal={editModal} deletePostIt={deletePostIt} title={title} />
+                </CanvaRight>
+              );
+            })}
           </div>
         </div>
         <div id='canva-container-bottom'>
-          <div className='canva-area'>
-            <p className='title-canva-area title-canva-area-bottom'>Resultados</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Resultados').length === 0 && (
-                <p className='text-canva-area text-canva-area-bottom' id='text-canva-area-resultados'>{initialTexts['Resultados']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Resultados') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
-          <div className='canva-area'>
-            <p className='title-canva-area title-canva-area-bottom'>Planejamento Estratégico</p>
-            {
-              postIts.filter(postIt => postIt.title === 'Planejamento Estratégico').length === 0 && (
-                <p className='text-canva-area text-canva-area-first-paragraph text-canva-area-bottom' id='text-canva-area-planejamento-estrategico1'>{initialTexts['Planejamento Estratégico']}</p>
-              )
-            }
-            <div className='postIt-area'>
-              {
-                postIts.map((postIt) => {
-                  if (postIt.title === 'Planejamento Estratégico') {
-                    return <PostIt key={postIt.id} text={postIt.text} open={e => editModal(postIt.title, postIt.text, postIt.id)} deletePostIt={e => deletePostIt(postIt.id)} />
-                  }
-                  return null;
-                })
-              }
-            </div>
-          </div>
+          {bottomArea.titles.map((title, index) => {
+            return (
+              <CanvaBottom postIts={postIts} title={title} initialTexts={initialTexts} id={bottomArea.id[index]}>
+                <PostItArea postIts={postIts} editModal={editModal} deletePostIt={deletePostIt} title={title} />
+              </CanvaBottom>
+            );
+          })}
         </div>
         <button id='button-canva' onClick={e => openModal()}>Adicionar Post-it</button>
       </div>

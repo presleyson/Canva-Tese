@@ -1,4 +1,6 @@
+// Bibliotecas
 import React, { useEffect, useState } from 'react';
+// Estilos e Funções
 import './style.css';
 
 export default function PostIt({ text, open, deletePostIt }) {

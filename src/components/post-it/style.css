@@ -53,10 +53,3 @@
 #canva-container-bottom div div #postIt-main-container {
   width: 27%;
 }
-
-#canva-container-bottom div div {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}

@@ -1,5 +1,7 @@
-import './style.css'
+// Bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
+// Estilos e Funções
+import './style.css'
 
 export default function PopUp({ open, message, close, confirm, cancel, confirmFnct }) {
   return (
