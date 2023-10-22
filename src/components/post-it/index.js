@@ -10,7 +10,7 @@ export default function PostIt({ text, open, deletePostIt }) {
   }, [text]);
 
   return (
-    <>
+    <div id="postIt-main-container">
       <div
         id='postIt-container'
         onClick={open}
@@ -34,6 +34,6 @@ export default function PostIt({ text, open, deletePostIt }) {
       >
         Apagar
       </button>
-    </>
+    </div>
   );
 }
