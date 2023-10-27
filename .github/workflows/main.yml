@@ -21,7 +21,7 @@ jobs:
 
     - name: Copy files from main
       run: |
-        rsync -av --exclude=build --exclude=.git ./ /path/to/gh-pages
+        rsync -av --exclude=build --exclude=.git ./
 
     - name: Install dependencies and build
       run: |
