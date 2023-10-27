@@ -24,7 +24,7 @@ jobs:
         git config --local user.name "NathanMarques2001"
         git fetch origin gh-pages:gh-pages
         git checkout gh-pages || git checkout -b gh-pages
-        git merge --allow-unrelated-histories main
+        git clone -b main https://github.com/NathanMarques2001/Canva-Tese.git
       
     - name: Install dependencies and build
       run: |
@@ -32,7 +32,7 @@ jobs:
         npm run build
 
     - name: Remove unnecessary files
-      run: ls | grep -v 'build' | xargs rm -rf
+      run: ls | grep -vE 'build|package.json' | xargs rm -rf
 
     - name: Move build files to root
       run: mv build/* .
