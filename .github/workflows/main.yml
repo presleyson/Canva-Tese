@@ -20,7 +20,8 @@ jobs:
         git merge --allow-unrelated-histories origin/gh-pages
 
     - name: Copy files from main
-      run: rsync -av --exclude=build --exclude=.git ./
+      run: |
+        rsync -av --exclude=build --exclude=.git ./
 
     - name: Install dependencies and build
       run: |
@@ -28,10 +29,12 @@ jobs:
         npm run build
 
     - name: Remove unnecessary files
-      run: ls | grep -v 'build' | xargs rm -rf
+      run: |
+        ls | grep -v 'build' | xargs rm -rf
 
     - name: Move build files to root
-      run: mv build/* .
+      run: |
+        mv build/* .
       
 
     - name: Commit and push changes
