@@ -34,7 +34,6 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        cd /path/to/gh-pages
         git config --local user.email "nathanmarques20@yahoo.com.br"
         git config --local user.name "NathanMarques2001"
         git add .
