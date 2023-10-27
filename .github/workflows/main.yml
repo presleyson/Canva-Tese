@@ -29,7 +29,6 @@ jobs:
 
     - name: Install dependencies and build
       run: |
-        cd ../
         npm install
         npm run build
 
