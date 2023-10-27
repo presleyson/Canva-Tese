@@ -22,7 +22,7 @@ jobs:
       run: |
         git fetch origin gh-pages:gh-pages
         git checkout gh-pages || git checkout -b gh-pages
-        git merge main
+        git merge --allow-unrelated-histories main
       
     - name: Install dependencies and build
       run: |
