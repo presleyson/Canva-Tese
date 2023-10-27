@@ -20,7 +20,8 @@ jobs:
 
     - name: Ensure gh-pages branch exists
       run: |
-        git checkout gh-pages
+        git fetch origin gh-pages:gh-pages
+        git checkout gh-pages || git checkout -b gh-pages
         git merge main
       
     - name: Install dependencies and build
