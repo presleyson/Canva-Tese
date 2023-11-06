@@ -4,8 +4,6 @@ import { RxCross1 } from 'react-icons/rx';
 import { useState } from 'react'
 // Componentes
 import PopUp from '../pop-up';
-// Estilos e Funções
-import './style.css'
 
 export default function ModalAddPostIt({ open, close, setArray, title, description, editId }) {
   const [form, setForm] = useState({
