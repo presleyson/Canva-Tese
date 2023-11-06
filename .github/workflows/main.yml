@@ -1,0 +1,41 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.x'
+    - name: Ensure gh-pages branch exists
+      run: |
+        git config --local user.email "nathanmarques20@yahoo.com.br"
+        git config --local user.name "NathanMarques2001"
+        git fetch origin gh-pages:gh-pages
+        git checkout gh-pages || git checkout -b gh-pages
+        git merge --allow-unrelated-histories main
+      
+    - name: Install dependencies and build
+      run: |
+        npm install
+        npm run build
+
+    - name: Remove unnecessary files
+      run: ls | grep -vE 'build|package.json' | xargs rm -rf
+
+    - name: Move build files to root
+      run: mv build/* .
+      
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "nathanmarques20@yahoo.com.br"
+        git config --local user.name "NathanMarques2001"
+        git add .
+        git commit -m "Build and deploy updates"
+        git push origin gh-pages
