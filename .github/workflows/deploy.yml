@@ -32,5 +32,7 @@ jobs:
 
       - name: Install dependencies and deploy
         run: |
-          npm ci
+          git config --global user.email "contato@presleyson.com.br"
+          git config --global user.name "presleyson"
+          npm install
           npm run deploy
