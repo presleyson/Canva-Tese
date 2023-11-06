@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Canva-Tese/static/css/main.0935a7af.css",
+    "main.js": "/Canva-Tese/static/js/main.87b99f5a.js",
+    "index.html": "/Canva-Tese/index.html",
+    "main.0935a7af.css.map": "/Canva-Tese/static/css/main.0935a7af.css.map",
+    "main.87b99f5a.js.map": "/Canva-Tese/static/js/main.87b99f5a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0935a7af.css",
+    "static/js/main.87b99f5a.js"
+  ]
+}
