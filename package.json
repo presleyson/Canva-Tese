@@ -2,6 +2,7 @@
   "name": "canva",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://nathanmarques2001.github.io/Canva-Tese/",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
     "@testing-library/jest-dom": "^5.17.0",
