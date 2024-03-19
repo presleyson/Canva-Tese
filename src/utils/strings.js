@@ -18,7 +18,7 @@ export const initialTexts = {
   'Recursos Técnicos': 'Liste as instituições ou organizações que podem fornecer suporte técnico, como universidades, parques tecnológicos, ou fornecedores.',
   'Recursos Financeiros': 'Enumere potenciais fontes de financiamento, como investidores privados, capital de risco, subsídios governamentais, etc.',
   'Ideias Selecionadas': 'Liste aqui as ideias selecionadas mais viáveis.',
-  'Geração de ideias': 'Insira aqui ideias vindas de pesquisas de mercado, brainstorming, etc.',
+  'Geração de ideias': 'Insira aqui idéias vindas de pesquisas de mercado, brainstorming, etc.',
   'Mercado': 'Insira aqui o mercado alvo.',
   'Problema': 'Identifique os principais problemas que sua empresa busca resolver. Explique como esses problemas afetam os clientes ou o mercado.',
   'Resultados': 'Apresente os resultados ou objetivos que sua empresa espera alcançar.',
