@@ -5,7 +5,7 @@ export default function validaQuantidade(title, postIts, editId) {
     'Principais Parceiros': 5,
     'Recursos Financeiros': 5,
     'Idéias Selecionadas': 5,
-    'Geração de idéias': 5,
+    'Geração de ideias': 5,
     'Mercado': 2,
     'Problema': 2,
     'Resultados': 6,
