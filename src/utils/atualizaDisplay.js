@@ -25,10 +25,10 @@ export default function atualizaDisplay(postIts) {
         updateDisplay('recursos-financeiros', postIt.title === 'Recursos Financeiros' ? 'none' : 'block');
         break;
       case 'Idéias Selecionadas':
-        updateDisplay('ideias-selecionadas', postIt.title === 'Idéias Selecionadas' ? 'none' : 'block');
+        updateDisplay('ideias-selecionadas', postIt.title === 'Ideias Selecionadas' ? 'none' : 'block');
         break;
       case 'Geração de idéias':
-        updateDisplay('geracao-ideias', postIt.title === 'Geração de idéias' ? 'none' : 'block');
+        updateDisplay('geracao-ideias', postIt.title === 'Geração de ideias' ? 'none' : 'block');
         break;
       case 'Mercado':
         updateDisplay('mercado', postIt.title === 'Mercado' ? 'none' : 'block');
