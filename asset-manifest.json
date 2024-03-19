@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/AgitarCanvas/static/css/main.0935a7af.css",
-    "main.js": "/AgitarCanvas/static/js/main.87b99f5a.js",
+    "main.js": "/AgitarCanvas/static/js/main.924bdaa0.js",
     "index.html": "/AgitarCanvas/index.html",
     "main.0935a7af.css.map": "/AgitarCanvas/static/css/main.0935a7af.css.map",
-    "main.87b99f5a.js.map": "/AgitarCanvas/static/js/main.87b99f5a.js.map"
+    "main.924bdaa0.js.map": "/AgitarCanvas/static/js/main.924bdaa0.js.map"
   },
   "entrypoints": [
     "static/css/main.0935a7af.css",
-    "static/js/main.87b99f5a.js"
+    "static/js/main.924bdaa0.js"
   ]
 }
